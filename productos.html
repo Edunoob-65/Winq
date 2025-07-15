@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Winq - Productos</title>
+
+   <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="productos.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@900&family=Rubik+Distressed&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <div class="caja">
+            <h1><img src="imagenes/logo.png" alt="Logo Winq" /></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html" class="active">Productos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="productos-section">
+            <h2 class="titulo-principal">Nuestros Productos</h2>
+            <p class="productos-intro">En Winq  ofrecemos productos de alta calidad, cuidando siempre la efectividad de nuestro servicio.</p>
+
+            <div class="productos-grid">
+                <article class="producto-card"
+                data-nombre="Playeras personalizadas"
+                data-descripcion="Escoge tu diseño y nosotros hacemos el resto."
+                data-caracteristicas="Material: Algodón, Tallas: S-XL, Colores: varios"
+                data-precio="Q250.00"
+                data-contacto="WhatsApp: xxx-xxx-xxx, Email: ventas@winq.com">
+                <img src="productos/cera-barba.jpg" alt="Cera para Barba" />
+                <h3>playeras personalizadas</h3>
+                 <p>Escoge tu diseño y nosotros hacemos el resto.</p>
+                </article>
+
+                                <article class="producto-card"
+                    data-nombre="Playeras estampadas"
+                    data-descripcion="Para diferentes gustos y con diferentes calidades."
+                    data-caracteristicas="Material: Poliéster y algodón, Tallas: S-XL, Estampados: personalizados"
+                    data-precio="Q150.00 "
+                    data-contacto="WhatsApp: xxx-xxx-xxx, Email: ventas@winq.com">
+                    <img src="productos/aceite-barba.jpg" alt="Aceite para Barba" />
+                    <h3>Playeras estampadas</h3>
+                    <p>Para diferentes gustos y con diferentes calidades.</p>
+                </article>
+
+                <!-- Tazas Personalizadas -->
+                <article class="producto-card"
+                    data-nombre="Tazas Personalizadas"
+                    data-descripcion="Todo tipo de diseño a tu gusto!."
+                    data-caracteristicas="Material: Cerámica, Capacidad: 350ml, Personalización: completa"
+                    data-precio="Q150.00"
+                    data-contacto="WhatsApp: xxx-xxx-xxx, Email: ventas@winq.com">
+                    <img src="productos/shampoo-cabello.jpg" alt="Shampoo para Cabello" />
+                    <h3>Tazas Personalizadas</h3>
+                    <p>Todo tipo de diseño a tu gusto!.</p>
+                </article>
+
+                <!-- Tazas termicas -->
+                <article class="producto-card"
+                    data-nombre="Tazas térmicas"
+                    data-descripcion="Vive la magia, cree en la imaginación 😉."
+                    data-caracteristicas="Material: Acero inoxidable, Capacidad: 400ml, Mantiene temperatura"
+                    data-precio="Q150.00"
+                    data-contacto="WhatsApp: xxx-xxx-xxx, Email: ventas@winq.com">
+                    <img src="productos/crema-afilar.jpg" alt="Crema para Afeitar" />
+                    <h3>Tazas termicas</h3>
+                    <p>Vive la magia, cree en la imaginacion 😉.</p>
+                </article>
+
+                <!-- Stickers y posters -->
+                <article class="producto-card"
+                    data-nombre="Stickers y posters"
+                    data-descripcion="Haz realidad todo aquel sticker que desees 😊."
+                    data-caracteristicas="Material: Vinil y papel, Tamaños: varios, Personalización: completa"
+                    data-precio="Q150.00 (stickers), Q150.00 MXN (posters)"
+                    data-contacto="WhatsApp: xxx-xxx-xxx, Email: ventas@winq.comm">
+                    <img src="productos/cepillo-barba.jpg" alt="Cepillo para Barba" />
+                    <h3>Stickers y posters</h3>
+                    <p>haz realidad todo aquel sticker que desees 😊.</p>
+                </article>
+
+                <!-- Llaveros personalizados -->
+                <article class="producto-card"
+                    data-nombre="Llaveros personalizados"
+                    data-descripcion="Con tecnología NFC para que innove."
+                    data-caracteristicas="Material: Acrílico, Tecnología: NFC, Personalización: completa"
+                    data-precio="Q150.00 MXN"
+                    data-contacto="WhatsApp: xxx-xxx-xxx, Email: ventas@winq.com">
+                    <img src="productos/balm-barba.jpg" alt="Bálsamo para Barba" />
+                    <h3>Llaveros personalizados</h3>
+                    <p>Con tecnologia NFC.</p>
+                </article>  
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <img src="imagenes/logo.png" alt="Logo Blanco Barbería Alura" />
+        <p class="copyright">&copy; Copyright Winq - 2025</p>
+    </footer>
+
+<div id="modal-producto" class="modal-producto" style="display:none;">
+  <div class="modal-contenido">
+    <span class="modal-cerrar">&times;</span>
+    <div class="modal-flex">
+      <img id="modal-imagen" src="" alt="Imagen producto" />
+      <div class="modal-info">
+        <h2 id="modal-nombre"></h2>
+        <p id="modal-descripcion"></p>
+        <p><strong>Características:</strong> <span id="modal-caracteristicas"></span></p>
+        <p><strong>Precio:</strong> <span id="modal-precio"></span></p>
+        <p><strong>Contacto:</strong> <span id="modal-contacto"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.producto-card').forEach(card => {
+  card.addEventListener('click', function() {
+    document.getElementById('modal-nombre').textContent = card.dataset.nombre;
+    document.getElementById('modal-descripcion').textContent = card.dataset.descripcion;
+    document.getElementById('modal-caracteristicas').textContent = card.dataset.caracteristicas;
+    document.getElementById('modal-precio').textContent = card.dataset.precio;
+    document.getElementById('modal-contacto').textContent = card.dataset.contacto;
+    // Copia la imagen
+    const imgSrc = card.querySelector('img').getAttribute('src');
+    const imgAlt = card.querySelector('img').getAttribute('alt');
+    const modalImg = document.getElementById('modal-imagen');
+    modalImg.src = imgSrc;
+    modalImg.alt = imgAlt;
+    document.getElementById('modal-producto').style.display = 'flex';
+  });
+});
+
+document.querySelector('.modal-cerrar').onclick = function() {
+  document.getElementById('modal-producto').style.display = 'none';
+};
+
+window.onclick = function(event) {
+  const modal = document.getElementById('modal-producto');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+};
+</script>
+
+</body>
+
+</html>
