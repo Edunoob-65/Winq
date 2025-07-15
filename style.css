@@ -278,7 +278,7 @@ nav ul li a[aria-current="page"] {
 
 /* Estilos para las imágenes verticales */
 .imagen-vertical {
-    width: 200px; /* Ancho base para las imágenes */
+    width: 320px; /* Ancho base para las imágenes */
     height: 800px; /* IMPORTANTE: Mantiene la proporción de la imagen */
     max-height: 800px; /* Limita su altura máxima en pantallas grandes */
     object-fit: cover;
