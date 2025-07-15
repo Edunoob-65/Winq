@@ -283,7 +283,7 @@ nav ul li a[aria-current="page"] {
     max-height: 800px; /* Limita su altura máxima en pantallas grandes */
     object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(214, 218, 15, 0.1);
 }
 
 /* Contenedor para videos de Vimeo (si usas la incrustación de Vimeo) */

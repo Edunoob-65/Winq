@@ -26,29 +26,29 @@
 <main>
     <h2 class="titulo-principal">Contáctanos</h2>
     
-    <form>
+    <form action="https://formsubmit.co/enoob2551@gmail.com" method="POST">
         <label for="nombreApellido">Nombre y Apellido</label>
-        <input type="text" id="nombreApellido" class="input-padron" required placeholder="Tu nombre completo" />
+        <input type="text" id="nombreApellido" name="nombre_apellido" class="input-padron" required placeholder="Tu nombre completo" />
 
         <label for="correoElectronico">Correo Electrónico</label>
-        <input type="email" id="correoElectronico" class="input-padron" required placeholder="email@dominio.com" />
+        <input type="email" id="correoElectronico" name="correo_electronico" class="input-padron" required placeholder="email@dominio.com" />
 
         <label for="telefono">Teléfono</label>
-        <input type="tel" id="telefono" class="input-padron" required placeholder="(XX) XXXX XXXX" />
+        <input type="tel" id="telefono" name="telefono" class="input-padron" required placeholder="(XX) XXXX XXXX" />
 
         <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" rows="6" class="input-padron" required placeholder="Escribe tu mensaje aquí"></textarea>
+        <textarea id="mensaje" name="mensaje" rows="6" class="input-padron" required placeholder="Escribe tu mensaje aquí"></textarea>
 
         <fieldset>
             <legend>¿Cómo le gustaría que lo contactemos?</legend>
-            <label><input type="radio" name="contacto" value="email" /> Email</label>
-            <label><input type="radio" name="contacto" value="telefono" /> Teléfono</label>
-            <label><input type="radio" name="contacto" value="whatsapp" checked /> Whatsapp</label>
+            <label><input type="radio" name="metodo_contacto" value="email" /> Email</label>
+            <label><input type="radio" name="metodo_contacto" value="telefono" /> Teléfono</label>
+            <label><input type="radio" name="metodo_contacto" value="whatsapp" checked /> Whatsapp</label>
         </fieldset>
 
         <fieldset>
             <legend>¿En cuál horario prefiere ser atendido?</legend>
-            <select class="input-padron" required>
+            <select class="input-padron" name="horario_preferido" required>
                 <option value="" disabled selected>Seleccione un horario</option>
                 <option value="manana">Mañana</option>
                 <option value="tarde">Tarde</option>
@@ -57,13 +57,16 @@
         </fieldset>
 
         <label class="checkbox">
-            <input type="checkbox" checked />
+            <input type="checkbox" name="recibir_novedades" value="si" checked />
             ¿Le gustaría recibir novedades de Winq?
         </label>
 
+        <input type="hidden" name="_captcha" value="false"> 
+
+        <input type="hidden" name="_next" value="https://edunoob-65.github.io/Winq/gracias.html"> 
+
         <input type="submit" value="Enviar Formulario" class="enviar" />
     </form>
-
     <table>
         <thead>
             <tr>
