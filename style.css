@@ -297,24 +297,6 @@ nav ul li a[aria-current="page"] {
 }
 
 /* Media Queries para responsividad */
-@media (max-width: 768px) {
-    .video-container {
-        flex-direction: column; /* Apila los elementos en pantallas más pequeñas */
-        align-items: center; /* Centra los elementos apilados */
-    }
-
-    .imagen-vertical {
-        width: 0px; /* Ajusta el tamaño de las imágenes en móviles */
-        margin-bottom: 0px; /* Espacio entre imágenes cuando están apiladas */
-    }
-
-    .video iframe {
-        width: 100%; /* El video ocupa todo el ancho disponible */
-        max-width: 400px; /* Limita el ancho máximo del video */
-        height: auto; /* Altura automática para mantener la proporción */
-        aspect-ratio: 16 / 9; /* Mantiene la proporción 16:9 para videos */
-    }
-}
 
 /* FOOTER */
 footer {
@@ -393,15 +375,37 @@ footer p {
     border-radius: 8px;
     margin-top: 6px;
   }
-  .video iframe {
-    border-radius: 25px;
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0);
-    width: 95%;
-    max-width: 95%;
-    height: 720px;
-    margin-top: 40px; 
-    transition: box-shadow 0.3s ease;
+  .video-container {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .imagen-vertical {
+        display: none;
+    }
+
+    .video-container {
+        flex-direction: column; 
+        align-items: center;
+        gap: 0; 
+        margin: 20px auto; 
+        padding: 0 10px; 
+        max-width: 100%;
+    }
+
     
+    .video {
+        width: 100%; 
+        max-width: 400px; 
+        margin: 0; 
+    }
+
+    
+    .video iframe {
+       border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    }
+
 }
   .principal img.utensilios {
     max-width: 100%;
@@ -425,7 +429,6 @@ footer p {
   footer p {
     font-size: 0.85rem;
   }
-}
 
 .carousel-container {
             position: relative; /* Necesario para posicionar las flechas */
