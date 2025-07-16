@@ -267,66 +267,50 @@ nav ul li a[aria-current="page"] {
 
 /* Contenedor principal para las imágenes y el video */
 .video-container {
-    display: flex; /* Habilita Flexbox */
+    display: flex;
     justify-content: center; /* Centra los elementos horizontalmente */
     align-items: center; /* Centra los elementos verticalmente */
-    gap: 20px; /* Espacio entre las imágenes y el video */
-    margin: 40px auto; /* Centra el contenedor y le da margen superior/inferior */
+    gap: 0px;
+    margin: 40px auto; /* Centra el contenedor completo */
     max-width: 1200px; /* Ancho máximo para el contenedor */
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    flex-wrap: wrap;
+    padding: 0 15px; /* Añade un padding horizontal para que no se pegue a los bordes */
+    box-sizing: border-box; /* CRÍTICO: Asegura que el padding se incluya en el ancho total */
+    overflow-x: hidden; /* Esto ayuda a prevenir barras de desplazamiento horizontales no deseadas */
 }
 
 /* Estilos para las imágenes verticales */
 .imagen-vertical {
-    width: 320px; /* Ancho base para las imágenes */
-    height: 800px; /* IMPORTANTE: Mantiene la proporción de la imagen */
-    max-height: 800px; /* Limita su altura máxima en pantallas grandes */
+    width: 220px; /* Ancho fijo para las imágenes */
+    height: 800px; /* Alto fijo para las imágenes (ajusta si es necesario para tu proporción) */
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(214, 218, 15, 0.1);
+    flex-shrink: 0; /* IMP: Evita que la imagen se encoja */
 }
 
-/* Contenedor para videos de Vimeo (si usas la incrustación de Vimeo) */
-/* Este div ya viene con el estilo inline de Vimeo para la relación de aspecto (padding-bottom) */
-.video { /* Esta clase es para el div que envuelve el iframe de Vimeo */
-    flex-shrink: 0;
-    width: 80%; /* Ocupa el 100% del espacio de su contenedor padre */
-    max-width: 400px; /* Ancho máximo para el video en pantallas grandes */
-}
-
-/* Estilos para el iframe del video de Vimeo (dentro del .video div) */
-.video iframe {
-    /* Estas propiedades ya las da el estilo inline de Vimeo para la relación de aspecto.
-       ¡NO las sobrescribas aquí con valores fijos como width/height si quieres responsividad! */
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    /* Las propiedades de 'position: absolute; top: 0; left: 0; width: 100%; height: 100%;'
-       ya están en el estilo inline que Vimeo genera, y son las que permiten que el
-       iframe se adapte a su div padre con 'padding-bottom'. */
-}
-
-
-/* --- Contenedor para tu video local (.mp4) --- */
+/* Contenedor para tu video local (.mp4) */
 .video-player-wrapper {
-    flex-shrink: 0;
-    width: 100%; /* Ocupa el 100% del espacio disponible en su contenedor flex */
-    max-width: 600px; /* Ancho máximo para el video en pantallas grandes */
-    
-    /* Para mantener la relación de aspecto de un video (ej. 16:9) */
+    width: 300px; /* Ancho fijo para el video */
+    height: 600px; /* Alto fijo para el video (ajusta para 16:9 si quieres mantener esa proporción y no usar padding-bottom) */
     position:relative;
-    padding-bottom: 80%; /* 16:9 = (9 / 16) * 100 = 56.25% */
-    height: 400px;
-    overflow: hidden; /* Oculta cualquier parte del video que se salga */
+    overflow: hidden;
+    flex-shrink: 0; /* IMP: Evita que el video se encoja */
+    /* Si quieres mantener 16:9 y evitar un alto fijo, usarías: */
+    /* padding-bottom: 56.25%; 
+       height: 0; */ 
+    /* Pero si el objetivo es "que no se modifique", un alto y ancho fijo son más directos. */
 }
 
 /* Estilos para el elemento <video> dentro de .video-player-wrapper */
 .video-player-wrapper video {
-    position: absolute;
+    position:absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que el video cubra el área sin distorsionar */
+    object-fit:contain;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -430,15 +414,18 @@ footer p {
 
     
     .video {
+
         width: 100%; 
         max-width: 400px; 
-        margin: 0; 
+        margin: 0;
+    
     }
 
     
     .video iframe {
        border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+     
     }
 
 }

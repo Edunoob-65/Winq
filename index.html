@@ -89,17 +89,17 @@
                     <li class="items">Puntualidad</li>
                     <li class="items">Presupuestos</li>
                 </ul>
-                <!-- Carrusel de imágenes -->
+              
                 <div class="carousel-container">
                     <div class="carousel-images" id="carouselImages">
-                        <!-- Aquí puedes reemplazar estas imágenes de placeholder con tus propias imágenes -->
+                        
                         <img src="diferenciales/playera-negra.jpg" alt="Imagen de diferencial 1" />
                         <img src="diferenciales/gorra.jpg" alt="Imagen de diferencial 2" />
                         <img src="diferenciales/playera.png" alt="Imagen de diferencial 3" />
                     
                     </div>
                     <button class="carousel-button left" onclick="scrollCarousel(-1)">
-                        &lt; <!-- Flecha izquierda -->
+                        &lt;
                     </button>
                     <button class="carousel-button right" onclick="scrollCarousel(1)">
                         &gt; <!-- Flecha derecha -->
@@ -129,17 +129,17 @@
     <script>
 
         const carouselImages = document.getElementById('carouselImages');
-        let scrollAmount = carouselImages.offsetWidth; // Define la cantidad de desplazamiento inicial (ancho de una imagen)
+        let scrollAmount = carouselImages.offsetWidth; // cantidad de desplazamiento inicial (ancho de una imagen)
 
        
         function scrollCarousel(direction) {
             carouselImages.scrollBy({
-                left: direction * scrollAmount, // Calcula el desplazamiento basado en la dirección y la cantidad
-                behavior: 'smooth' // Hace que el desplazamiento sea suave
+                left: direction * scrollAmount, //  desplazamiento basado en la dirección y la cantidad
+                behavior: 'smooth' 
             });
         }
 
-        // Ajusta la cantidad de desplazamiento si la ventana cambia de tamaño
+
         // Esto asegura que el carrusel siempre se desplace por el ancho de una imagen visible
         window.addEventListener('resize', () => {
             scrollAmount = carouselImages.offsetWidth;
