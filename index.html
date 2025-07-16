@@ -127,14 +127,11 @@
     </footer>
 
     <script>
-        // Obtiene el elemento contenedor de las imágenes del carrusel
+
         const carouselImages = document.getElementById('carouselImages');
         let scrollAmount = carouselImages.offsetWidth; // Define la cantidad de desplazamiento inicial (ancho de una imagen)
 
-        /**
-         * Función para desplazar el carrusel horizontalmente.
-         * @param {number} direction - La dirección del desplazamiento (-1 para izquierda, 1 para derecha).
-         */
+       
         function scrollCarousel(direction) {
             carouselImages.scrollBy({
                 left: direction * scrollAmount, // Calcula el desplazamiento basado en la dirección y la cantidad
