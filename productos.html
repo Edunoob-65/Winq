@@ -41,9 +41,10 @@
                 data-descripcion="Escoge tu diseño y nosotros hacemos el resto. ¡Ideas infinitas para tu estilo único!"
                 data-caracteristicas="Material: Algodón premium 100%, Tallas: S, M, L, XL, Colores: Blanco, Negro, Gris, Rojo, Azul. Impresión DTG de alta durabilidad."
                 data-precio="Q250.00"
-                data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com"> <img src="productos/proximamente.png" alt="Playera Personalizada" />
-                <h3>playeras personalizadas</h3>
-                <p>Escoge tu diseño y nosotros hacemos el resto.</p>
+                data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
+                    <img src="productos/proximamente.png" alt="Playera Personalizada" />
+                    <h3>playeras personalizadas</h3>
+                    <p>Escoge tu diseño y nosotros hacemos el resto.</p>
                 </article>
 
                 <article class="producto-card"
@@ -53,8 +54,6 @@
                     data-precio="Q150.00"
                     data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Playera Estampada" />
-                    <h3>Playeras estampadas</h3>
-                    <p>Para diferentes gustos y con diferentes calidades.</p>
                 </article>
 
                 <article class="producto-card"
@@ -64,8 +63,6 @@
                     data-precio="Q150.00"
                     data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Taza Personalizada" />
-                    <h3>Tazas Personalizadas</h3>
-                    <p>Todo tipo de diseño a tu gusto!.</p>
                 </article>
 
                 <article class="producto-card"
@@ -75,8 +72,6 @@
                     data-precio="Q150.00"
                     data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Taza Térmica" />
-                    <h3>Tazas termicas</h3>
-                    <p>Vive la magia, cree en la imaginacion 😉.</p>
                 </article>
 
                 <article class="producto-card"
@@ -86,8 +81,6 @@
                     data-precio="Q50.00 (stickers), Q150.00 (posters)"
                     data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Stickers y Posters" />
-                    <h3>Stickers y posters</h3>
-                    <p>haz realidad todo aquel sticker que desees 😊.</p>
                 </article>
 
                 <article class="producto-card"
@@ -97,9 +90,7 @@
                     data-precio="Q80.00"
                     data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Llavero Personalizado" />
-                    <h3>Llaveros personalizados</h3>
-                    <p>Llaveros a tu medida.</p>
-                </article> 
+                </article>
             </div>
         </section>
     </main>
@@ -121,10 +112,11 @@
             <p class="modal-descripcion-texto" id="modal-descripcion"></p>
             <p><strong>Características:</strong> <span id="modal-caracteristicas"></span></p>
             <p><strong>Precio:</strong> <span id="modal-precio"></span></p>
-            
+
             <div class="modal-contacto-section">
               <h3>¿Interesado? ¡Contáctanos!</h3>
-              <p id="modal-email-contacto-display"></p> <a href="#" id="whatsapp-button" class="whatsapp-btn" target="_blank">
+              <p id="modal-email-contacto-display"></p> 
+              <a href="#" id="whatsapp-button" class="whatsapp-btn" target="_blank">
                 <i class="fab fa-whatsapp"></i> Comprar / Preguntar por WhatsApp
               </a>
               </div>
@@ -134,73 +126,85 @@
     </div>
 
 <script>
-document.querySelectorAll('.producto-card').forEach(card => {
-    card.addEventListener('click', function() {
-        document.getElementById('modal-nombre').textContent = card.dataset.nombre;
-        document.getElementById('modal-descripcion').textContent = card.dataset.descripcion;
-        document.getElementById('modal-caracteristicas').textContent = card.dataset.caracteristicas;
-        document.getElementById('modal-precio').textContent = card.dataset.precio;
-        // document.getElementById('modal-contacto').textContent = card.dataset.contacto; // Ya no usamos este directamente
+document.addEventListener('DOMContentLoaded', () => {
+    const modalNombre = document.getElementById('modal-nombre');
+    const modalDescripcion = document.getElementById('modal-descripcion');
+    const modalCaracteristicas = document.getElementById('modal-caracteristicas');
+    const modalPrecio = document.getElementById('modal-precio');
+    const modalImg = document.getElementById('modal-imagen');
+    const whatsappButton = document.getElementById('whatsapp-button');
+    // const emailButton = document.getElementById('email-button'); // Este ya no se usa, el botón fue eliminado
+    const emailDisplay = document.getElementById('modal-email-contacto-display'); // Volvemos a referenciar este elemento
+    const modalContactoSection = document.querySelector('.modal-contacto-section');
 
-        // Carga la imagen
-        const imgSrc = card.querySelector('img').getAttribute('src');
-        const imgAlt = card.querySelector('img').getAttribute('alt');
-        const modalImg = document.getElementById('modal-imagen');
-        modalImg.src = imgSrc;
-        modalImg.alt = imgAlt;
+    const primerProductoCard = document.querySelector('.productos-grid').firstElementChild;
 
-        // --- Configuración del botón de WhatsApp ---
-        const whatsappNumero = card.dataset.whatsappNumero;
-        const whatsappButton = document.getElementById('whatsapp-button');
-        
-        if (whatsappNumero) {
-            // Formato de enlace de WhatsApp: https://wa.me/numerodetelefono?text=tu_mensaje
-            // El mensaje se puede personalizar
-           whatsappButton.href = `https://wa.me/50253452672?text=Hola%2C%20estoy%20interesado%20en%20el%20producto`;
-            whatsappButton.style.display = 'inline-block'; // Muestra el botón
-        } else {
-            whatsappButton.style.display = 'none'; // Oculta el botón si no hay número
-        }
+    document.querySelectorAll('.producto-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const isPrimerProducto = (this === primerProductoCard);
 
-        // --- Configuración del email si lo deseas ---
-        const emailContacto = card.dataset.emailContacto;
-        const emailDisplay = document.getElementById('modal-email-contacto-display');
-        if (emailContacto) {
-            emailDisplay.textContent = `Email: ${emailContacto}`;
-            emailDisplay.style.display = 'block';
-            // Si tuvieras un botón de email, lo configurarías aquí
-            // const emailButton = document.getElementById('email-button');
-            // emailButton.href = `mailto:${emailContacto}?subject=Consulta%20sobre%20${encodeURIComponent(card.dataset.nombre)}`;
-        } else {
-            emailDisplay.style.display = 'none';
-        }
+            const imgSrc = this.querySelector('img').getAttribute('src');
+            const imgAlt = this.querySelector('img').getAttribute('alt');
+            modalImg.src = imgSrc;
+            modalImg.alt = imgAlt;
 
+            if (isPrimerProducto) {
+                // Lógica para el primer producto (mostrar toda la información)
+                modalNombre.textContent = this.dataset.nombre;
+                modalDescripcion.textContent = this.dataset.descripcion;
+                modalCaracteristicas.textContent = this.dataset.caracteristicas;
+                modalPrecio.textContent = this.dataset.precio;
 
-        document.getElementById('modal-producto').style.display = 'flex';
-        
-        setTimeout(() => {
-            document.getElementById('modal-producto').classList.add('is-active');
-        }, 10); // Pequeño retardo para que la transición CSS funcione
+                modalContactoSection.style.display = 'flex';
+
+                whatsappButton.href = `https://wa.me/50253452672?text=Hola%2C%20me%20interesa%20el%20producto`;
+                whatsappButton.style.display = 'inline-flex';
+
+                // --- Lógica para mostrar la dirección de email como texto ---
+                const emailContacto = this.dataset.emailContacto;
+                if (emailContacto) {
+                    emailDisplay.textContent = `Email: ${emailContacto}`;
+                    emailDisplay.style.display = 'block'; // Muestra el texto del email
+                } else {
+                    emailDisplay.style.display = 'none'; // Oculta el texto si no hay email
+                }
+
+            } else {
+                // Lógica para los demás productos (solo imagen y mensaje de "Próximamente")
+                modalNombre.textContent = "¡Producto Próximamente!";
+                modalDescripcion.textContent = "Estamos trabajando arduamente en este increíble producto. ¡Mantente atento para más detalles!";
+                modalCaracteristicas.textContent = "Disponible pronto";
+                modalPrecio.textContent = "Consulta para más información";
+
+                modalContactoSection.style.display = 'none'; // Oculta la sección de contacto (incluyendo el email)
+            }
+
+            document.getElementById('modal-producto').style.display = 'flex';
+
+            setTimeout(() => {
+                document.getElementById('modal-producto').classList.add('is-active');
+            }, 10);
+        });
     });
-});
 
-document.querySelector('.modal-cerrar').onclick = function() {
-    const modal = document.getElementById('modal-producto');
-    modal.classList.remove('is-active'); // Quita la clase de animación
-    setTimeout(() => {
-        modal.style.display = 'none'; // Oculta después de la animación
-    }, 300); // Coincide con la duración de tu transición CSS
-};
-
-window.onclick = function(event) {
-    const modal = document.getElementById('modal-producto');
-    if (event.target === modal) {
-        modal.classList.remove('is-active'); 
+    document.querySelector('.modal-cerrar').onclick = function() {
+        const modal = document.getElementById('modal-producto');
+        modal.classList.remove('is-active');
         setTimeout(() => {
-            modal.style.display = 'none'; 
-        }, 300); 
-    }
-};
+            modal.style.display = 'none';
+        }, 300);
+    };
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('modal-producto');
+        if (event.target === modal) {
+            modal.classList.remove('is-active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+    };
+});
 </script>
 
 </body>

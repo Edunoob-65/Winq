@@ -501,8 +501,8 @@ footer p {
             position: absolute; /* Posiciona los botones sobre el carrusel */
             top: 50%; /* Centra verticalmente */
             transform: translateY(-50%); /* Ajuste fino para centrar */
-            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para los botones */
-            color: rgb(148, 144, 144); /* Color del texto/icono de los botones */
+            background-color: rgba(189, 186, 23, 0.993); /* Fondo semitransparente para los botones */
+            color: rgb(7, 7, 7); /* Color del texto/icono de los botones */
             border: none; /* Sin borde */
             padding: 0.75rem 1rem; /* Espaciado interno */
             cursor: pointer; /* Cambia el cursor al pasar por encima */
