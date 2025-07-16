@@ -156,7 +156,7 @@ document.querySelectorAll('.producto-card').forEach(card => {
         if (whatsappNumero) {
             // Formato de enlace de WhatsApp: https://wa.me/numerodetelefono?text=tu_mensaje
             // El mensaje se puede personalizar
-           whatsappButton.href = `https://wa.me/50253452672?text=Hola%2C%20estoy%20interesado%20en%20el%20producto%3A%20${encodeURIComponent(card.dataset.nombre)}`;
+           whatsappButton.href = `https://wa.me/50253452672?text=Hola%2C%20estoy%20interesado%20en%20el%20producto%3A%20`;
             whatsappButton.style.display = 'inline-block'; // Muestra el botón
         } else {
             whatsappButton.style.display = 'none'; // Oculta el botón si no hay número
