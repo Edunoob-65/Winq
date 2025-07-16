@@ -2,13 +2,16 @@
 
 /* Variables de colores */
 :root {
-  --color-principal: #d4af37;
-  --color-fondo: #faf6f0;
-  --color-texto: #333;
-  --color-secundario: #3a2e1f;
-  --color-secundario-claro: #6c5b44;
-  --color-header: #2c2a29;
-  --color-blanco: #fff;
+  --color-principal: #d4af37; /* Dorado/Amarillo principal */
+  --color-fondo: #faf6f0;    /* Fondo claro */
+  --color-texto: #333;       /* Gris oscuro para texto general */
+  --color-secundario: #3a2e1f; /* Marrón oscuro para títulos */
+  --color-secundario-claro: #6c5b44; /* Marrón más claro para texto secundario */
+  --color-header: #2c2a29;   /* Negro casi gris para header/footer */
+  --color-blanco: #fff;      /* Blanco */
+  --color-verde-whatsapp: #25d366; /* Verde WhatsApp */
+  --color-verde-whatsapp-hover: #1da851; /* Verde WhatsApp oscuro para hover */
+  --color-azul-llamativo: #007bff; /* Azul para títulos de modal */
 }
 
 /* BODY */
@@ -64,7 +67,7 @@ nav ul li a {
   text-decoration: none;
   padding: 10px 18px;
   border-radius: 8px;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
   font-size: 1rem;
 }
 
@@ -72,8 +75,8 @@ nav ul li a.active,
 nav ul li a:hover,
 nav ul li a[aria-current="page"] {
   color: var(--color-principal);
-  background-color: transparent;
-  text-decoration: underline;
+  background-color: transparent; /* Se mantiene transparente para no interferir con el hover */
+  text-decoration: underline; /* Puedes quitar esto si no quieres subrayado */
 }
 
 /* Sección productos */
@@ -119,6 +122,7 @@ nav ul li a[aria-current="page"] {
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
   padding: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* Indicar que es clickeable */
 }
 
 .producto-card:hover {
@@ -158,14 +162,14 @@ footer {
 
 footer img {
   height: 50px;
-  filter: brightness(0.85);
+  filter: brightness(0.85); /* Un poco menos brillante para el fondo oscuro */
   border-radius: 15px;
   margin-bottom: 12px;
   transition: filter 0.3s ease, transform 0.3s ease;
 }
 
 footer img:hover {
-  filter: brightness(1);
+  filter: brightness(1); /* Más brillante al pasar el mouse */
   transform: scale(1.1);
 }
 
@@ -175,194 +179,318 @@ footer p {
   letter-spacing: 0.04em;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .caja {
-    flex-direction: row;
-    padding: 20px 10px;
-  }
-  .productos-section {
-    padding: 1.5rem 0.5rem;
-  }
-  .productos-grid {
-    gap: 18px;
-  }
-}
+/* --- ESTILOS DEL MODAL DE DETALLE DE PRODUCTO (ACTUALIZADOS Y MEJORADOS) --- */
 
-@media (max-width: 480px) {
-  .caja {
-    flex-direction: row; /* Mantiene logo y menú en línea */
-    align-items: center;
-    padding: 12px 6px;
-    gap: 8px;
-  }
-  header h1 img {
-    height: 80px;
-    margin-bottom: 0;
-  }
-  nav ul {
-    flex-direction: row; /* Mantiene menú horizontal */
-    gap: 10px;
-    width: auto;
-    padding: 0;
-    justify-content: flex-end;
-  }
-  nav ul li {
-    width: auto;
-    text-align: right;
-  }
-  nav ul li a {
-    padding: 8px 10px;
-    font-size: 0.95rem;
-    text-align: right;
-    width: auto;
-    display: inline-block;
-  }
-  .productos-section {
-    padding: 10px 2px;
-    margin-bottom: 18px;
-    border-radius: 12px;
-  }
-  .productos-section .titulo-principal {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-    padding-bottom: 2px;
-  }
-  .productos-intro {
-    font-size: 0.95rem;
-    margin-bottom: 18px;
-  }
-  .productos-grid {
-    gap: 10px;
-    padding: 0 2px;
-  }
-  .producto-card {
-    padding: 10px;
-    border-radius: 12px;
-  }
-  .producto-card img {
-    max-height: 120px;
-    border-radius: 10px;
-    margin-bottom: 8px;
-  }
-  .producto-card h3 {
-    font-size: 1.05rem;
-    margin-bottom: 8px;
-  }
-  .producto-card p {
-    font-size: 0.95rem;
-    margin-bottom: 6px;
-  }
-  footer {
-    padding: 12px 6px;
-    margin-top: 12px;
-  }
-  footer img {
-    height: 28px;
-    margin-bottom: 6px;
-  }
-  footer p {
-    font-size: 0.9rem;
-  }
-}
-
-/* Modal estilos básicos */
 .modal-producto {
+  display: none; /* Oculto por defecto, JS lo cambia a 'flex' */
   position: fixed;
-  z-index: 9999;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
+  z-index: 1000; /* Asegura que esté por encima de todo */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   overflow: auto;
-  background: rgba(0,0,0,0.6);
-  display: none;
-  align-items: center;
-  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  opacity: 0; /* Para la animación de entrada */
+  transition: opacity 0.3s ease-in-out; /* Transición suave de opacidad */
 }
-.modal-producto[style*="display: flex"] {
-  display: flex !important;
+
+/* Clase añadida por JS para activar la animación de entrada */
+.modal-producto.is-active {
+    opacity: 1; /* Muestra el modal con la animación */
 }
+
 .modal-contenido {
-  background: #fff;
-  padding: 40px 32px;
-  border-radius: 22px;
-  max-width: 650px;
-  width: 95%;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
-  position: relative;
-  animation: modalShow 0.25s;
+    background-color: var(--color-blanco); /* Fondo blanco del modal */
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px; /* Esquinas redondeadas */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); /* Sombra suave y atractiva */
+    width: 90%; /* Ancho responsivo */
+    max-width: 900px; /* Ancho máximo */
+    position: relative;
+    transform: translateY(-20px); /* Para la animación de entrada */
+    opacity: 0; /* Para la animación de entrada */
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
-@keyframes modalShow {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+
+/* Clase añadida por JS para activar la animación de entrada del contenido */
+.modal-producto.is-active .modal-contenido {
+    transform: translateY(0); /* Posición final de la animación */
+    opacity: 1; /* Muestra el contenido con animación */
 }
+
 .modal-cerrar {
-  position: absolute;
-  top: 16px; right: 18px;
-  font-size: 2rem;
-  color: #333;
-  cursor: pointer;
-  font-weight: bold;
-  transition: color 0.2s;
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 36px; /* Tamaño más grande para el ícono de cerrar */
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
 }
-.modal-cerrar:hover {
-  color: #d4af37;
+
+.modal-cerrar:hover,
+.modal-cerrar:focus {
+    color: var(--color-secundario); /* Color más oscuro al pasar el mouse */
 }
+
 .modal-flex {
-  display: flex;
-  align-items: flex-start;
-  gap: 32px;
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se apilen en pantallas pequeñas */
+    gap: 30px; /* Espacio entre la imagen y la info */
+    align-items: flex-start; /* Alinea los elementos al inicio */
 }
-#modal-imagen {
-  width: 200px;
-  height: auto;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-  object-fit: cover;
+
+.modal-imagen-container {
+    flex: 1; /* Ocupa el espacio disponible */
+    min-width: 250px; /* Ancho mínimo para la imagen */
+    max-width: 400px; /* Ancho máximo para la imagen */
+    border-radius: 8px;
+    overflow: hidden; /* Asegura que la imagen no sobresalga de los bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-.modal-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.modal-info h2 {
-  font-size: 2rem;
-  color: var(--color-secundario);
-  margin-bottom: 8px;
-}
-.modal-info p {
-  font-size: 1.1rem;
-  color: var(--color-texto);
-  margin: 0;
-  line-height: 1.6;
-}
-@media (max-width: 700px) {
-  .modal-contenido {
-    max-width: 98vw;
-    padding: 16px 6px;
-    border-radius: 14px;
-  }
-  .modal-flex {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  #modal-imagen {
-    width: 80vw;
-    max-width: 260px;
-    margin-bottom: 10px;
-  }
-  .modal-info {
+
+.modal-imagen-container img {
     width: 100%;
-    gap: 10px;
-  }
-  .modal-info h2 {
-    font-size: 1.3rem;
-    margin-bottom: 4px;
-  }
-  .modal-info p {
-    font-size: 1rem;
-    margin-bottom: 6px;
-    line-height: 1.4;
-  }
+    height: auto;
+    display: block;
+    border-radius: 8px; /* Redondea las esquinas de la imagen */
+}
+
+.modal-info {
+    flex: 2; /* Ocupa más espacio que la imagen */
+    min-width: 300px; /* Ancho mínimo para la información */
+    padding-left: 20px; /* Espacio a la izquierda del texto */
+}
+
+.modal-info h2 {
+    font-family: 'Montserrat Alternates', sans-serif; /* Fuente llamativa para el título del producto */
+    font-size: 2.5em; /* Tamaño grande */
+    color: var(--color-azul-llamativo); /* Un color vibrante para el título */
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #eee; /* Separador sutil */
+    padding-bottom: 10px;
+}
+
+.modal-descripcion-texto {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--color-texto); /* Usa la variable de color de texto */
+    margin-bottom: 20px;
+}
+
+.modal-info p {
+    font-size: 1.05em;
+    margin-bottom: 10px;
+    color: var(--color-texto); /* Usa la variable de color de texto */
+}
+
+.modal-info p strong {
+    color: var(--color-secundario); /* Color oscuro para los títulos de las características */
+}
+
+.modal-contacto-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #ccc; /* Separador sutil */
+    text-align: center; /* Centra el botón */
+}
+
+.modal-contacto-section h3 {
+    font-size: 1.8em;
+    color: var(--color-verde-whatsapp); /* Un verde para la llamada a la acción de contacto */
+    margin-bottom: 15px;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+/* Estilo del botón de WhatsApp */
+.whatsapp-btn {
+    display: inline-flex; /* Permite alinear el icono y el texto */
+    align-items: center;
+    background-color: var(--color-verde-whatsapp); /* Verde WhatsApp */
+    color: var(--color-blanco);
+    padding: 15px 30px;
+    border-radius: 30px; /* Bordes muy redondeados */
+    text-decoration: none;
+    font-size: 1.3em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    gap: 10px; /* Espacio entre el icono y el texto */
+}
+
+.whatsapp-btn:hover {
+    background-color: var(--color-verde-whatsapp-hover); /* Verde más oscuro al pasar el mouse */
+    transform: translateY(-3px); /* Pequeño efecto de elevación */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-btn i {
+    font-size: 1.5em; /* Tamaño del icono de WhatsApp */
+}
+
+/* --- MEDIA QUERIES (RESPONSIVE) --- */
+
+/* Ajustes generales para pantallas medianas (tablets) */
+@media (max-width: 900px) {
+    .caja {
+        flex-direction: column; /* Apila logo y menú en línea en vez de fila */
+        padding: 15px 10px;
+        gap: 10px; /* Espacio entre logo y menú */
+    }
+    header h1 img {
+        height: 80px; /* Logo un poco más pequeño */
+    }
+    nav ul {
+        gap: 15px; /* Menos espacio entre ítems de menú */
+        justify-content: center; /* Centra los ítems de menú */
+    }
+    nav ul li a {
+        padding: 8px 12px;
+        font-size: 0.95rem;
+    }
+    .productos-section {
+        padding: 30px 15px;
+        margin: 40px auto;
+        border-radius: 15px;
+    }
+    .productos-grid {
+        gap: 20px;
+        padding: 0 10px;
+    }
+    /* Estilos del modal para tablets (768px es el breakpoint anterior) */
+    .modal-contenido {
+        width: 90%;
+        max-width: 700px;
+        padding: 25px;
+    }
+    .modal-flex {
+        gap: 20px;
+    }
+    .modal-info h2 {
+        font-size: 2em; /* Título del modal un poco más pequeño */
+    }
+    .modal-info p {
+        font-size: 1em;
+    }
+    .modal-contacto-section h3 {
+        font-size: 1.5em;
+    }
+}
+
+/* Ajustes para pantallas pequeñas (móviles) */
+@media (max-width: 600px) { /* Cambiado de 480px a 600px para un breakpoint más común */
+    .caja {
+        flex-direction: column; /* Apila el logo y el nav */
+        align-items: center;
+        padding: 10px 5px;
+        gap: 5px;
+    }
+    header h1 img {
+        height: 70px;
+    }
+    nav ul {
+        flex-wrap: wrap; /* Permite que los ítems del menú se envuelvan */
+        justify-content: center;
+        gap: 8px;
+    }
+    nav ul li a {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+    .productos-section {
+        padding: 20px 10px;
+        margin: 30px auto;
+        border-radius: 10px;
+    }
+    .productos-section .titulo-principal {
+        font-size: 2rem; /* Título principal más pequeño */
+        margin-bottom: 15px;
+    }
+    .productos-intro {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+    .productos-grid {
+        grid-template-columns: 1fr; /* Una columna en móviles */
+        gap: 20px;
+        padding: 0 10px;
+    }
+    .producto-card {
+        padding: 15px;
+        border-radius: 15px;
+    }
+    .producto-card img {
+        max-height: 150px; /* Imagen de tarjeta un poco más pequeña */
+    }
+    .producto-card h3 {
+        font-size: 1.2rem;
+    }
+    .producto-card p {
+        font-size: 0.95rem;
+    }
+    footer {
+        padding: 20px 10px;
+        margin-top: 30px;
+    }
+    footer img {
+        height: 40px;
+    }
+    footer p {
+        font-size: 0.9rem;
+    }
+
+    /* Estilos del modal para móviles (este es el breakpoint de 600px) */
+    .modal-contenido {
+        width: 95%;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .modal-flex {
+        flex-direction: column; /* Apila imagen y texto */
+        align-items: center; /* Centra los elementos apilados */
+        gap: 15px;
+    }
+    .modal-imagen-container {
+        max-width: 90%; /* Imagen más grande en móviles */
+        min-width: unset; /* Elimina el min-width */
+    }
+    .modal-info {
+        padding-left: 0;
+        text-align: center; /* Centra el texto */
+        min-width: unset;
+    }
+    .modal-info h2 {
+        font-size: 1.8em; /* Título del modal ajustado para móvil */
+        margin-bottom: 10px;
+    }
+    .modal-descripcion-texto {
+        font-size: 1em;
+        margin-bottom: 15px;
+    }
+    .modal-info p {
+        font-size: 0.95em;
+        margin-bottom: 8px;
+    }
+    .modal-contacto-section {
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+    .modal-contacto-section h3 {
+        font-size: 1.4em;
+        margin-bottom: 10px;
+    }
+    .whatsapp-btn {
+        width: 95%; /* Botón más ancho en móviles */
+        padding: 12px 20px;
+        font-size: 1.1em;
+    }
+    .whatsapp-btn i {
+        font-size: 1.2em;
+    }
 }

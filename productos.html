@@ -156,7 +156,7 @@ document.querySelectorAll('.producto-card').forEach(card => {
         if (whatsappNumero) {
             // Formato de enlace de WhatsApp: https://wa.me/numerodetelefono?text=tu_mensaje
             // El mensaje se puede personalizar
-            whatsappButton.href = `https://wa.me/${whatsappNumero}?text=Hola%2C%20estoy%20interesado%20en%20el%20producto%3A%20${encodeURIComponent(card.dataset.nombre)}`;
+           whatsappButton.href = `https://wa.me/50253452672?text=Hola%2C%20estoy%20interesado%20en%20el%20producto%3A%20${encodeURIComponent(card.dataset.nombre)}`;
             whatsappButton.style.display = 'inline-block'; // Muestra el botón
         } else {
             whatsappButton.style.display = 'none'; // Oculta el botón si no hay número
@@ -177,7 +177,7 @@ document.querySelectorAll('.producto-card').forEach(card => {
 
 
         document.getElementById('modal-producto').style.display = 'flex';
-        // Añadir una clase para animar la aparición del modal si usas CSS para ello
+        
         setTimeout(() => {
             document.getElementById('modal-producto').classList.add('is-active');
         }, 10); // Pequeño retardo para que la transición CSS funcione
@@ -195,10 +195,10 @@ document.querySelector('.modal-cerrar').onclick = function() {
 window.onclick = function(event) {
     const modal = document.getElementById('modal-producto');
     if (event.target === modal) {
-        modal.classList.remove('is-active'); // Quita la clase de animación
+        modal.classList.remove('is-active'); 
         setTimeout(() => {
-            modal.style.display = 'none'; // Oculta después de la animación
-        }, 300); // Coincide con la duración de tu transición CSS
+            modal.style.display = 'none'; 
+        }, 300); 
     }
 };
 </script>
