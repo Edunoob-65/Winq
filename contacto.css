@@ -255,7 +255,7 @@ footer p {
     height: 80px;
   }
   nav ul {
-    /* flex-direction: column; */ /* Elimina o comenta esta línea */
+
     gap: 12px; /* Puedes ajustar el espacio entre pestañas */
     width: auto;
     padding: 0;
