@@ -41,7 +41,7 @@
                 data-descripcion="Escoge tu diseño y nosotros hacemos el resto. ¡Ideas infinitas para tu estilo único!"
                 data-caracteristicas="Material: Algodón premium 100%, Tallas: S, M, L, XL, Colores: Blanco, Negro, Gris, Rojo, Azul. Impresión DTG de alta durabilidad."
                 data-precio="Q250.00"
-                data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com"> <img src="productos/proximamente.png" alt="Playera Personalizada" />
+                data-whatsapp-numero="50212345678" data-email-contacto="ventas@winq.com"> <img src="productos/proximamente.png" alt="Playera Personalizada" />
                 <h3>playeras personalizadas</h3>
                 <p>Escoge tu diseño y nosotros hacemos el resto.</p>
                 </article>
@@ -51,7 +51,8 @@
                     data-descripcion="Para diferentes gustos y con diferentes calidades. Diseños exclusivos que marcan tendencia."
                     data-caracteristicas="Material: Poliéster y algodón de alta calidad, Tallas: S-XL, Estampados: diseños variados y personalizados bajo pedido. Acabado suave y resistente."
                     data-precio="Q150.00"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
+                    data-whatsapp-numero="50212345678"
+                    data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Playera Estampada" />
                     <h3>Playeras estampadas</h3>
                     <p>Para diferentes gustos y con diferentes calidades.</p>
@@ -62,7 +63,8 @@
                     data-descripcion="Todo tipo de diseño a tu gusto! Perfectas para regalos o para empezar el día con estilo."
                     data-caracteristicas="Material: Cerámica de alta resistencia, Capacidad: 350ml (11oz), Personalización: foto, texto, logo; aptas para microondas y lavavajillas."
                     data-precio="Q150.00"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
+                    data-whatsapp-numero="50212345678"
+                    data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Taza Personalizada" />
                     <h3>Tazas Personalizadas</h3>
                     <p>Todo tipo de diseño a tu gusto!.</p>
@@ -73,7 +75,8 @@
                     data-descripcion="Vive la magia, cree en la imaginación 😉. Mantén tus bebidas a la temperatura ideal por horas."
                     data-caracteristicas="Material: Acero inoxidable de doble pared, Capacidad: 400ml (13.5oz), Mantiene temperatura: hasta 6 horas caliente / 12 horas frío. Tapa antiderrame."
                     data-precio="Q150.00"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
+                    data-whatsapp-numero="50212345678"
+                    data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Taza Térmica" />
                     <h3>Tazas termicas</h3>
                     <p>Vive la magia, cree en la imaginacion 😉.</p>
@@ -84,7 +87,8 @@
                     data-descripcion="Haz realidad todo aquel sticker que desees 😊. Decora tus espacios y objetos con diseños únicos."
                     data-caracteristicas="Material: Vinil brillante y papel fotográfico mate. Tamaños: A6, A5, A4, A3 y personalizados. Resistentes al agua (stickers). Impresión de alta resolución."
                     data-precio="Q50.00 (stickers), Q150.00 (posters)"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
+                    data-whatsapp-numero="50212345678"
+                    data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Stickers y Posters" />
                     <h3>Stickers y posters</h3>
                     <p>haz realidad todo aquel sticker que desees 😊.</p>
@@ -95,7 +99,8 @@
                     data-descripcion="Lleva tus recuerdos y diseños favoritos a todas partes. ¡El detalle perfecto para regalar!"
                     data-caracteristicas="Material: Acrílico o metal, Formas: redonda, cuadrada, corazón o personalizada. Impresión a doble cara. Resistentes y duraderos."
                     data-precio="Q80.00"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
+                    data-whatsapp-numero="50212345678"
+                    data-email-contacto="ventas@winq.com">
                     <img src="productos/proximamente.png" alt="Llavero Personalizado" />
                     <h3>Llaveros personalizados</h3>
                     <p>Llaveros a tu medida.</p>
@@ -124,10 +129,13 @@
             
             <div class="modal-contacto-section">
               <h3>¿Interesado? ¡Contáctanos!</h3>
-              <p id="modal-email-contacto-display"></p> <a href="#" id="whatsapp-button" class="whatsapp-btn" target="_blank">
-                <i class="fab fa-whatsapp"></i> Comprar / Preguntar por WhatsApp
+              <a href="#" id="whatsapp-button" class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Preguntar por WhatsApp
               </a>
-              </div>
+              <a href="#" id="email-button" class="email-btn" target="_blank">
+                <i class="fas fa-envelope"></i> Enviar Correo
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -156,28 +164,25 @@ document.querySelectorAll('.producto-card').forEach(card => {
         if (whatsappNumero) {
             // Formato de enlace de WhatsApp: https://wa.me/numerodetelefono?text=tu_mensaje
             // El mensaje se puede personalizar
-           whatsappButton.href = `https://wa.me/50253452672?text=Hola%2C%20estoy%20interesado%20en%20el%20producto%3A%20`;
-            whatsappButton.style.display = 'inline-block'; // Muestra el botón
+            whatsappButton.href = `https://wa.me/${whatsappNumero}?text=Hola%2C%20estoy%20interesado%20en%20el%20producto%3A%20${encodeURIComponent(card.dataset.nombre)}`;
+            whatsappButton.style.display = 'inline-flex'; // Usa 'inline-flex' para el botón
         } else {
             whatsappButton.style.display = 'none'; // Oculta el botón si no hay número
         }
 
-        // --- Configuración del email si lo deseas ---
+        // --- Configuración del botón de Email ---
         const emailContacto = card.dataset.emailContacto;
-        const emailDisplay = document.getElementById('modal-email-contacto-display');
+        const emailButton = document.getElementById('email-button'); // Obtener el nuevo botón
+        
         if (emailContacto) {
-            emailDisplay.textContent = `Email: ${emailContacto}`;
-            emailDisplay.style.display = 'block';
-            // Si tuvieras un botón de email, lo configurarías aquí
-            // const emailButton = document.getElementById('email-button');
-            // emailButton.href = `mailto:${emailContacto}?subject=Consulta%20sobre%20${encodeURIComponent(card.dataset.nombre)}`;
+            emailButton.href = `mailto:${emailContacto}?subject=Consulta%20sobre%20${encodeURIComponent(card.dataset.nombre)}`;
+            emailButton.style.display = 'inline-flex'; // Usa 'inline-flex' para el botón
         } else {
-            emailDisplay.style.display = 'none';
+            emailButton.style.display = 'none'; // Oculta el botón si no hay email
         }
 
-
         document.getElementById('modal-producto').style.display = 'flex';
-        
+        // Añadir una clase para animar la aparición del modal si usas CSS para ello
         setTimeout(() => {
             document.getElementById('modal-producto').classList.add('is-active');
         }, 10); // Pequeño retardo para que la transición CSS funcione
@@ -195,10 +200,10 @@ document.querySelector('.modal-cerrar').onclick = function() {
 window.onclick = function(event) {
     const modal = document.getElementById('modal-producto');
     if (event.target === modal) {
-        modal.classList.remove('is-active'); 
+        modal.classList.remove('is-active'); // Quita la clase de animación
         setTimeout(() => {
-            modal.style.display = 'none'; 
-        }, 300); 
+            modal.style.display = 'none'; // Oculta después de la animación
+        }, 300); // Coincide con la duración de tu transición CSS
     }
 };
 </script>
