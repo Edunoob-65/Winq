@@ -175,8 +175,8 @@ document.querySelectorAll('.producto-card').forEach(card => {
         const emailButton = document.getElementById('email-button'); // Obtener el nuevo botón
         
         if (emailContacto) {
-            emailButton.href = `mailto:${emailContacto}?subject=Consulta%20sobre%20${encodeURIComponent(card.dataset.nombre)}`;
-            emailButton.style.display = 'inline-flex'; // Usa 'inline-flex' para el botón
+           emailButton.href = `mailto:enoob2551@gmail.com?subject=Consulta%20sobre%20producto`;
+emailButton.style.display = 'inline-flex'; // Usa 'inline-flex' para el botón
         } else {
             emailButton.style.display = 'none'; // Oculta el botón si no hay email
         }
