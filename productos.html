@@ -52,45 +52,45 @@
                     data-descripcion="Para diferentes gustos y con diferentes calidades. Diseños exclusivos que marcan tendencia."
                     data-caracteristicas="Material: Poliéster y algodón de alta calidad, Tallas: S-XL, Estampados: diseños variados y personalizados bajo pedido. Acabado suave y resistente."
                     data-precio="Q150.00"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
-                    <img src="productos/proximamente.png" alt="Playera Estampada" />
-                </article>
+                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com"
+                    data-proximamente="true"> <img src="productos/proximamente.png" alt="Playera Estampada" />
+                    <h3>Playeras Estampadas</h3> <p>Próximamente...</p> </article>
 
                 <article class="producto-card"
                     data-nombre="Tazas Personalizadas"
                     data-descripcion="Todo tipo de diseño a tu gusto! Perfectas para regalos o para empezar el día con estilo."
                     data-caracteristicas="Material: Cerámica de alta resistencia, Capacidad: 350ml (11oz), Personalización: foto, texto, logo; aptas para microondas y lavavajillas."
                     data-precio="Q150.00"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
-                    <img src="productos/proximamente.png" alt="Taza Personalizada" />
-                </article>
+                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com"
+                    data-proximamente="true"> <img src="productos/proximamente.png" alt="Taza Personalizada" />
+                    <h3>Tazas Personalizadas</h3> <p>Próximamente...</p> </article>
 
                 <article class="producto-card"
                     data-nombre="Tazas térmicas"
                     data-descripcion="Vive la magia, cree en la imaginación 😉. Mantén tus bebidas a la temperatura ideal por horas."
                     data-caracteristicas="Material: Acero inoxidable de doble pared, Capacidad: 400ml (13.5oz), Mantiene temperatura: hasta 6 horas caliente / 12 horas frío. Tapa antiderrame."
                     data-precio="Q150.00"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
-                    <img src="productos/proximamente.png" alt="Taza Térmica" />
-                </article>
+                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com"
+                    data-proximamente="true"> <img src="productos/proximamente.png" alt="Taza Térmica" />
+                    <h3>Tazas Térmicas</h3> <p>Próximamente...</p> </article>
 
                 <article class="producto-card"
                     data-nombre="Stickers y posters"
                     data-descripcion="Haz realidad todo aquel sticker que desees 😊. Decora tus espacios y objetos con diseños únicos."
                     data-caracteristicas="Material: Vinil brillante y papel fotográfico mate. Tamaños: A6, A5, A4, A3 y personalizados. Resistentes al agua (stickers). Impresión de alta resolución."
                     data-precio="Q50.00 (stickers), Q150.00 (posters)"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
-                    <img src="productos/proximamente.png" alt="Stickers y Posters" />
-                </article>
+                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com"
+                    data-proximamente="true"> <img src="productos/proximamente.png" alt="Stickers y Posters" />
+                    <h3>Stickers y Posters</h3> <p>Próximamente...</p> </article>
 
                 <article class="producto-card"
                     data-nombre="Llaveros personalizados"
                     data-descripcion="Lleva tus recuerdos y diseños favoritos a todas partes. ¡El detalle perfecto para regalar!"
                     data-caracteristicas="Material: Acrílico o metal, Formas: redonda, cuadrada, corazón o personalizada. Impresión a doble cara. Resistentes y duraderos."
                     data-precio="Q80.00"
-                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
-                    <img src="productos/proximamente.png" alt="Llavero Personalizado" />
-                </article>
+                    data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com"
+                    data-proximamente="true"> <img src="productos/proximamente.png" alt="Llavero Personalizado" />
+                    <h3>Llaveros Personalizados</h3> <p>Próximamente...</p> </article>
             </div>
         </section>
     </main>
@@ -133,60 +133,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalPrecio = document.getElementById('modal-precio');
     const modalImg = document.getElementById('modal-imagen');
     const whatsappButton = document.getElementById('whatsapp-button');
-    // const emailButton = document.getElementById('email-button'); // Este ya no se usa, el botón fue eliminado
-    const emailDisplay = document.getElementById('modal-email-contacto-display'); // Volvemos a referenciar este elemento
+    const emailDisplay = document.getElementById('modal-email-contacto-display');
     const modalContactoSection = document.querySelector('.modal-contacto-section');
 
+    // Esta variable se usa para identificar el primer producto, lo cual ya hace su función
     const primerProductoCard = document.querySelector('.productos-grid').firstElementChild;
 
     document.querySelectorAll('.producto-card').forEach(card => {
         card.addEventListener('click', function() {
-            const isPrimerProducto = (this === primerProductoCard);
+            // Verificamos si la tarjeta actual tiene el atributo data-proximamente="true"
+            const isProximamente = this.dataset.proximamente === 'true';
 
-            const imgSrc = this.querySelector('img').getAttribute('src');
-            const imgAlt = this.querySelector('img').getAttribute('alt');
-            modalImg.src = imgSrc;
-            modalImg.alt = imgAlt;
+            // Si es un producto "próximamente" o el primer producto, ajustamos la imagen en el modal
+            if (isProximamente) {
+                // *** AQUÍ ESTÁ EL CAMBIO CLAVE ***
+                // Cargamos el GIF "trabajando.gif" para los productos "próximamente" en el modal
+                modalImg.src = 'productos/trabajando.gif';
+                modalImg.alt = "Producto en desarrollo";
 
-            if (isPrimerProducto) {
-                // Lógica para el primer producto (mostrar toda la información)
-                modalNombre.textContent = this.dataset.nombre;
-                modalDescripcion.textContent = this.dataset.descripcion;
-                modalCaracteristicas.textContent = this.dataset.caracteristicas;
-                modalPrecio.textContent = this.dataset.precio;
-
-                modalContactoSection.style.display = 'flex';
-
-                whatsappButton.href = `https://wa.me/50253452672?text=Hola%2C%20me%20interesa%20el%20producto`;
-                whatsappButton.style.display = 'inline-flex';
-
-                // --- Lógica para mostrar la dirección de email como texto ---
-                const emailContacto = this.dataset.emailContacto;
-                if (emailContacto) {
-                    emailDisplay.textContent = `Email: ${emailContacto}`;
-                    emailDisplay.style.display = 'block'; // Muestra el texto del email
-                } else {
-                    emailDisplay.style.display = 'none'; // Oculta el texto si no hay email
-                }
-
-            } else {
-                // Lógica para los demás productos (solo imagen y mensaje de "Próximamente")
                 modalNombre.textContent = "¡Producto Próximamente!";
                 modalDescripcion.textContent = "Estamos trabajando arduamente en este increíble producto. ¡Mantente atento para más detalles!";
                 modalCaracteristicas.textContent = "Disponible pronto";
                 modalPrecio.textContent = "Consulta para más información";
 
-                modalContactoSection.style.display = 'none'; // Oculta la sección de contacto (incluyendo el email)
+                modalContactoSection.style.display = 'none'; // Oculta la sección de contacto
+
+            } else {
+                // Lógica para los productos "normales" (actualmente solo el primero)
+                const imgSrc = this.querySelector('img').getAttribute('src');
+                const imgAlt = this.querySelector('img').getAttribute('alt');
+                modalImg.src = imgSrc; // Carga la imagen de la tarjeta
+                modalImg.alt = imgAlt;
+
+                modalNombre.textContent = this.dataset.nombre;
+                modalDescripcion.textContent = this.dataset.descripcion;
+                modalCaracteristicas.textContent = this.dataset.caracteristicas;
+                modalPrecio.textContent = this.dataset.precio;
+
+                modalContactoSection.style.display = 'flex'; // Muestra la sección de contacto
+
+                whatsappButton.href = `https://wa.me/50253452672?text=Hola%2C%20me%20interesa%20el%20producto`;
+                whatsappButton.style.display = 'inline-flex';
+
+                const emailContacto = this.dataset.emailContacto;
+                if (emailContacto) {
+                    emailDisplay.textContent = `Email: ${emailContacto}`;
+                    emailDisplay.style.display = 'block';
+                } else {
+                    emailDisplay.style.display = 'none';
+                }
             }
 
+            // Lógica para mostrar el modal (se mantiene igual)
             document.getElementById('modal-producto').style.display = 'flex';
-
             setTimeout(() => {
                 document.getElementById('modal-producto').classList.add('is-active');
             }, 10);
         });
     });
 
+    // Lógica para cerrar el modal (se mantiene igual)
     document.querySelector('.modal-cerrar').onclick = function() {
         const modal = document.getElementById('modal-producto');
         modal.classList.remove('is-active');
@@ -195,6 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     };
 
+    // Cerrar modal al hacer clic fuera (se mantiene igual)
     window.onclick = function(event) {
         const modal = document.getElementById('modal-producto');
         if (event.target === modal) {

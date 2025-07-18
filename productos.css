@@ -37,7 +37,11 @@ body {
     /* Degradado animado en el fondo del body */
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     background-size: 400% 400%; /* Tamaño para que el degradado se mueva */
-    animation: gradientAnimation 15s ease infinite alternate; /* Animación de degradado */
+    /* *** POTENCIAL CAUSA IDENTIFICADA Y REMOVIDA PARA PRUEBA *** */
+    /* La animación infinita en el body podría estar consumiendo recursos que afecten la reactividad inicial. */
+    /* animation: gradientAnimation 15s ease infinite alternate; */
+    /* Si el problema se soluciona eliminando esta línea, puedes optar por quitar la animación de fondo
+       o buscar una forma más optimizada de aplicarla si es crucial para tu diseño. */
 }
 
 /* Contenedor general */
@@ -162,6 +166,8 @@ nav ul li a[aria-current="page"] {
     padding: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    /* Añadir will-change para optimizar transform y box-shadow en hover */
+    will-change: transform, box-shadow;
 }
 
 .producto-card:hover {
@@ -175,6 +181,13 @@ nav ul li a[aria-current="page"] {
     object-fit: cover;
     margin-bottom: 15px;
     max-height: 180px;
+    transition: transform 0.3s ease-in-out;
+    /* Añadir will-change para optimizar transform en hover */
+    will-change: transform;
+}
+
+.producto-card img:hover {
+    transform: scale(1.05) translateY(-5px);
 }
 
 .producto-card h3 {
@@ -211,6 +224,8 @@ footer img {
     margin-bottom: 12px;
     /* Transición más detallada para los íconos del footer */
     transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+    /* Añadir will-change para optimizar transform, filter y box-shadow en hover */
+    will-change: transform, filter, box-shadow;
 }
 
 footer img:hover {
@@ -225,9 +240,10 @@ footer p {
     letter-spacing: 0.04em;
 }
 
-/* Modal Styles */
+/* --- ESTILOS MEJORADOS DEL MODAL --- */
 .modal-producto {
-    display: none;
+    /* *** AJUSTE IMPORTANTE: display se controla por JS para evitar interferencia inicial *** */
+    display: none; /* Asegura que no se muestra al cargar la página */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -235,376 +251,308 @@ footer p {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.75); /* Fondo oscuro más intenso */
+    /* `display: flex;` se moverá a `.modal-producto.is-active` para activarse con JS */
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    /* Animación de fundido para el overlay */
+    transition: opacity 0.4s ease-in-out;
+    /* Hint para el navegador sobre cambios esperados */
+    will-change: opacity;
 }
 
 .modal-producto.is-active {
     opacity: 1;
-    display: flex; /* Asegura que el modal se muestre como flex cuando está activo */
+    display: flex; /* Se hace visible y centrado cuando JavaScript le añade la clase */
 }
 
 .modal-contenido {
     background-color: var(--color-blanco);
     margin: auto;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    padding: 35px; /* Más padding para un aspecto más amplio */
+    border-radius: 16px; /* Bordes más suaves */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45); /* Sombra más profunda */
     width: 90%;
-    max-width: 900px;
+    max-width: 950px; /* Un poco más ancho */
     position: relative;
-    transform: translateY(-20px);
+    /* Animación de "pop-up" con rebote */
+    transform: scale(0.9);
     opacity: 0;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease-in-out;
+    border: 2px solid var(--color-principal); /* Borde llamativo del color principal */
+    overflow: hidden; /* Para asegurar que los radios se apliquen bien si hay overflow */
+    /* Hint para el navegador sobre cambios esperados */
+    will-change: transform, opacity;
 }
 
 .modal-producto.is-active .modal-contenido {
-    transform: translateY(0);
+    transform: scale(1);
     opacity: 1;
 }
 
 .modal-cerrar {
-    color: #aaa;
+    color: var(--color-secundario); /* Color de texto más oscuro */
     position: absolute;
-    top: 15px;
-    right: 25px;
-    font-size: 36px;
+    top: 18px;
+    right: 28px;
+    font-size: 44px; /* Más grande y fácil de ver */
     font-weight: bold;
     cursor: pointer;
-    transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, transform 0.2s ease;
 }
 
 .modal-cerrar:hover,
 .modal-cerrar:focus {
-    color: var(--color-secundario);
+    color: var(--color-principal); /* Dorado al pasar el mouse */
+    transform: rotate(90deg) scale(1.1); /* Efecto de rotación y ligero zoom */
+    outline: none; /* Eliminar el contorno al enfocar */
 }
 
 .modal-flex {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 40px; /* Mayor espacio entre elementos */
     align-items: flex-start;
+    justify-content: center; /* Centrar elementos si hay espacio */
 }
 
 .modal-imagen-container {
     flex: 1;
-    min-width: 250px;
-    max-width: 400px;
-    border-radius: 8px;
+    min-width: 280px;
+    max-width: 450px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25); /* Sombra más definida */
+    background-color: var(--color-fondo); /* Fondo para la imagen */
+    padding: 5px; /* Un pequeño padding interno como un marco */
+    border: 1px solid rgba(0,0,0,0.05); /* Borde muy sutil */
+    transition: transform 0.3s ease-out; /* Transición para efecto hover/activo */
+    will-change: transform; /* Hint para el navegador */
 }
 
 .modal-imagen-container img {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 8px;
+    border-radius: 10px; /* Ligeramente menos que el contenedor */
+    object-fit: cover;
+    transition: transform 0.5s ease-out; /* Animación de zoom sutil al abrir */
 }
+
+.modal-producto.is-active .modal-imagen-container img {
+    transform: scale(1.03); /* Ligero zoom al abrir */
+}
+
 
 .modal-info {
     flex: 2;
-    min-width: 300px;
-    padding-left: 20px;
+    min-width: 320px;
+    padding-left: 0; /* Ya usamos gap */
+    text-align: left;
 }
 
 .modal-info h2 {
-    /* Usar Montserrat con peso 900 para el título del modal */
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 2.5em;
-    color: var(--color-azul-llamativo);
-    margin-bottom: 15px;
+    font-size: 3em; /* Título principal del modal más grande */
+    color: var(--color-secundario); /* Usamos el gris oscuro para el título principal del modal */
+    margin-bottom: 20px;
     text-transform: uppercase;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
+    border-bottom: 4px solid var(--color-principal); /* Borde inferior más pronunciado con color principal */
+    padding-bottom: 15px;
+    letter-spacing: 1.5px; /* Más espaciado entre letras */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra de texto sutil */
 }
 
 .modal-descripcion-texto {
-    font-size: 1.1em;
-    line-height: 1.6;
+    font-size: 1.18em; /* Tamaño de fuente ligeramente más grande */
+    line-height: 1.7;
     color: var(--color-texto);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    background-color: var(--color-fondo); /* Fondo suave para el texto */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05); /* Sombra interna sutil */
 }
 
 .modal-info p {
-    font-size: 1.05em;
-    margin-bottom: 10px;
+    font-size: 1.08em; /* Tamaño de fuente ligeramente más grande */
+    margin-bottom: 12px;
     color: var(--color-texto);
 }
 
 .modal-info p strong {
     color: var(--color-secundario);
+    font-weight: 700;
 }
 
 .modal-contacto-section {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px dashed #ccc;
+    margin-top: 40px; /* Más espacio superior */
+    padding-top: 25px;
+    border-top: 1px dashed var(--color-principal); /* Borde punteado con color principal */
     text-align: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
 }
 
 .modal-contacto-section h3 {
-    /* Usar Montserrat con peso 900 para el título de contacto en el modal */
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 1.8em;
-    color: var(--color-verde-whatsapp);
-    margin-bottom: 15px;
+    font-size: 2.2em; /* Título de contacto más grande */
+    color: var(--color-principal); /* Color principal para el título de contacto */
+    margin-bottom: 20px;
+    width: 100%;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15); /* Sombra más definida */
+}
+
+.whatsapp-btn,
+.email-btn {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-blanco);
+    padding: 18px 35px; /* Botones más grandes */
+    border-radius: 40px; /* Más redondeados */
+    text-decoration: none;
+    font-size: 1.5em; /* Texto de botón más grande */
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3); /* Sombra más prominente */
+    gap: 15px; /* Mayor espacio entre ícono y texto */
+    letter-spacing: 0.8px;
+    text-transform: uppercase; /* Texto en mayúsculas */
+    will-change: transform, background-color, box-shadow; /* Hint para el navegador */
 }
 
 .whatsapp-btn {
-    display: inline-flex;
-    align-items: center;
     background-color: var(--color-verde-whatsapp);
-    color: var(--color-blanco);
-    padding: 15px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-size: 1.3em;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    gap: 10px;
 }
 
 .whatsapp-btn:hover {
     background-color: var(--color-verde-whatsapp-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px); /* Se eleva un poco más */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
-.whatsapp-btn i {
-    font-size: 1.5em;
-}
-
+/* Nota: el botón de email fue reemplazado por texto en el HTML y JS proporcionado anteriormente.
+   Si deseas un botón de email de nuevo, podrías reincorporar el HTML y ajustar este estilo.
+   Mantengo la clase por si la reincorporas. */
 .email-btn {
-    display: inline-flex;
-    align-items: center;
-    background-color: var(--color-email-btn);
-    color: var(--color-blanco);
-    padding: 15px 30px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-size: 1.3em;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    gap: 10px;
+    background-color: var(--color-azul-llamativo); /* Puedes cambiar este a un tono que combine mejor si no quieres el azul */
 }
 
 .email-btn:hover {
     background-color: var(--color-email-btn-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
+.whatsapp-btn i,
 .email-btn i {
-    font-size: 1.5em;
+    font-size: 1.8em; /* Iconos más grandes */
 }
 
+#modal-email-contacto-display {
+    font-size: 1.2em;
+    color: var(--color-secundario-claro); /* Usa un color de la paleta para el texto del email */
+    margin-bottom: 15px;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+
+/* Media Queries para Responsividad del Modal (ajustadas) */
 @media (max-width: 900px) {
-    .caja {
-        flex-direction: column;
-        padding: 15px 10px;
-        gap: 10px;
-    }
-
-    header h1 img {
-        height: 80px;
-    }
-
-    nav ul {
-        gap: 15px;
-        justify-content: center;
-    }
-
-    nav ul li a {
-        padding: 8px 12px;
-        font-size: 0.95rem;
-    }
-
-    .productos-section {
-        padding: 30px 15px;
-        margin: 40px auto;
-        border-radius: 15px;
-    }
-
-    .productos-grid {
-        gap: 20px;
-        padding: 0 10px;
-    }
-
     .modal-contenido {
-        width: 90%;
-        max-width: 700px;
-        padding: 25px;
+        padding: 30px;
+        max-width: 800px;
+        border-radius: 14px;
     }
-
     .modal-flex {
-        gap: 20px;
+        gap: 30px;
     }
-
     .modal-info h2 {
+        font-size: 2.5em;
+        padding-bottom: 12px;
+    }
+    .modal-descripcion-texto {
+        font-size: 1.1em;
+        padding: 12px;
+    }
+    .modal-contacto-section h3 {
         font-size: 2em;
     }
-
-    .modal-info p {
-        font-size: 1em;
+    .whatsapp-btn, .email-btn {
+        font-size: 1.3em;
+        padding: 15px 30px;
     }
-
-    .modal-contacto-section h3 {
-        font-size: 1.5em;
+    .whatsapp-btn i, .email-btn i {
+        font-size: 1.6em;
     }
 }
 
-@media (max-width: 480px) {
-    .caja {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 5px;
-        gap: 5px;
-    }
-
-    header h1 img {
-        height: 70px;
-    }
-
-    nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    nav ul li a {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-    }
-
-    .productos-section {
-        padding: 20px 10px;
-        margin: 30px auto;
-        border-radius: 10px;
-    }
-
-    .productos-section .titulo-principal {
-        font-size: 2rem;
-        margin-bottom: 15px;
-    }
-
-    .productos-intro {
-        font-size: 0.95rem;
-        margin-bottom: 25px;
-    }
-
-    .productos-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 10px;
-    }
-
-    .producto-card {
-        padding: 15px;
-        border-radius: 15px;
-    }
-
-    .producto-card img {
-        max-height: 150px;
-    }
-
-    .producto-card h3 {
-        font-size: 1.2rem;
-    }
-
-    .producto-card p {
-        font-size: 0.95rem;
-    }
-
-    footer {
-        padding: 20px 10px;
-        margin-top: 30px;
-    }
-
-    footer img {
-        height: 40px;
-    }
-
-    footer p {
-        font-size: 0.9rem;
-    }
-
+@media (max-width: 600px) {
     .modal-contenido {
-        width: 95%;
-        padding: 20px;
-        border-radius: 10px;
+        padding: 25px;
+        border-radius: 12px;
+        width: 95%; /* Ocupa más ancho en pantallas pequeñas */
     }
-
+    .modal-cerrar {
+        font-size: 38px;
+        top: 12px;
+        right: 20px;
+    }
     .modal-flex {
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: 25px;
     }
-
     .modal-imagen-container {
+        min-width: unset;
         max-width: 90%;
-        min-width: unset;
+        padding: 3px;
     }
-
     .modal-info {
-        padding-left: 0;
-        text-align: center;
         min-width: unset;
+        padding-left: 0;
+        text-align: center; /* Centrar todo el texto en móviles */
     }
-
     .modal-info h2 {
-        font-size: 1.8em;
-        margin-bottom: 10px;
+        font-size: 2em;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
     }
-
-    .modal-descripcion-texto {
+    .modal-descripcion-texto, .modal-info p {
         font-size: 1em;
+        text-align: center;
         margin-bottom: 15px;
     }
-
-    .modal-info p {
-        font-size: 0.95em;
-        margin-bottom: 8px;
-    }
-
     .modal-contacto-section {
-        margin-top: 20px;
-        padding-top: 15px;
+        margin-top: 30px;
+        padding-top: 20px;
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
     }
-
     .modal-contacto-section h3 {
-        font-size: 1.4em;
-        margin-bottom: 10px;
+        font-size: 1.8em;
     }
-
-    .whatsapp-btn,
-    .email-btn {
-        width: 95%;
-        padding: 12px 20px;
+    .whatsapp-btn, .email-btn {
+        width: 90%;
         font-size: 1.1em;
-        justify-content: center;
+        padding: 12px 25px;
     }
-
-    .whatsapp-btn i,
-    .email-btn i {
-        font-size: 1.2em;
+    .whatsapp-btn i, .email-btn i {
+        font-size: 1.4em;
+    }
+    #modal-email-contacto-display {
+        font-size: 1.1em;
     }
 }
 
 
+/* Animaciones existentes (no modificadas) */
 @keyframes slideDownFadeIn {
     0% {
         transform: translateY(-100px);
@@ -638,7 +586,7 @@ footer p {
     }
 }
 
-/* Nueva animación de degradado para el body */
+/* Nueva animación de degradado para el body (no modificada) */
 @keyframes gradientAnimation {
     0% {
         background-position: 0% 50%;
