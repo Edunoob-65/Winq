@@ -12,15 +12,14 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@900&family=Rubik+Distressed&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
 
-
-</head>
+    </head>
 
 <body>
     <header>
         <div class="caja">
-            <h1><img src="imagenes/logo.png" alt="Logo Winq" /></h1>
+            <h1><img src="imagenes/logo-blanco.png" alt="Logo Winq" /></h1>
             <nav>
                 <ul>
                     <li><a href="index.html" class="active">Inicio</a></li>
@@ -37,8 +36,6 @@
         <section class="principal">
             <h2 class="titulo-principal">¿Quienes somos?</h2>
 
-            
-
             <p>
                 <strong>Winq</strong> es una empresa creativa dedicada a la personalización de productos a través del diseño de llaveros y artículos promocionales. También ofrecemos soluciones para eventos, brindando detalles únicos y personalizados que marcan la diferencia.
                 Nos apasiona transformar ideas en productos originales, combinando calidad, diseño y un trato cercano con cada cliente. En <strong>Winq</strong>, cada proyecto es una oportunidad para crear algo especial y memorable.
@@ -46,26 +43,20 @@
 
             <h2 class="titulo-principal">Misión</h2>
 
-            
-
             <p>
-                Nuestra misión es ofrecer llaveros inteligentes con NFC y códigos QR para conectar los mundos físico y digital, facilitando el intercambio rápido y sencillo de datos, redes sociales y contenido web. Nos comprometemos a entregar productos funcionales y personalizados, priorizando la calidad y la innovación para que cada llavero sea una extensión útil y única para el usuario.
+                Ofrecer llaveros inteligentes con NFC y códigos QR para conectar los mundos físico y digital, facilitando el intercambio rápido y sencillo de datos, redes sociales y contenido web. Nos comprometemos a entregar productos funcionales y personalizados, priorizando la calidad y la innovación para que cada llavero sea una extensión útil y única para el usuario.
             </p>
 
             <h2 class="titulo-principal">Visión</h2>
 
-            
-
             <p>
-                 Aspiramos a ser la marca referente en llaveros inteligentes con NFC y QR, que conecten y simplifiquen la vida. Queremos transformar este objeto cotidiano en una herramienta moderna y accesible que combine tecnología, estilo y funcionalidad, facilitando la conexión digital y el intercambio de información para todos.
+                Aspiramos a ser la marca referente en llaveros inteligentes con NFC y QR, que conecten y simplifiquen la vida. Queremos transformar este objeto cotidiano en una herramienta moderna y accesible que combine tecnología, estilo y funcionalidad, facilitando la conexión digital y el intercambio de información para todos.
             </p>
 
             <p id="mision">
                 <em>Nuestro slogan es: <strong>"Creatividad que se imprime"</strong>.</em>
             </p>
 
-
-           
         </section>
 
         <section class="Mapa">
@@ -89,56 +80,50 @@
                     <li class="items">Puntualidad</li>
                     <li class="items">Presupuestos</li>
                 </ul>
-              
+
                 <div class="carousel-container">
                     <div class="carousel-images" id="carouselImages">
-                        
                         <img src="diferenciales/playera-negra.jpg" alt="Imagen de diferencial 1" />
                         <img src="diferenciales/gorra.jpg" alt="Imagen de diferencial 2" />
                         <img src="diferenciales/playera.png" alt="Imagen de diferencial 3" />
-                    
                     </div>
                     <button class="carousel-button left" onclick="scrollCarousel(-1)">
-                        &lt;
+                        <
                     </button>
                     <button class="carousel-button right" onclick="scrollCarousel(1)">
-                        &gt; <!-- Flecha derecha -->
+                        >
                     </button>
                 </div>
             </div>
 
-  <div class="video-container">
-    <img src="video/imagen1.png" alt="Imagen decorativa izquierda" class="imagen-vertical">
-    <div class="video">
-       <div class="video-player-wrapper"> <video controls>
-            <source src="video/video.mp4" type="video/mp4">
-            Tu navegador no soporta el tag de video.
-        </video>
-    </div>
-    </div>
-    <img src="video/imagen2.png" alt="Imagen decorativa derecha" class="imagen-vertical">
-</div>
+            <div class="video-container">
+                <div class="video">
+                    <div class="video-player-wrapper">
+                        <video controls>
+                            <source src="video/video.mp4" type="video/mp4">
+                            Tu navegador no soporta el tag de video.
+                        </video>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
         <img src="imagenes/logo.png" alt="Logo Blanco Barbería Alura" />
-        <p class="copyright">&copy; Copyright Winq - 2025</p>
+        <p class="copyright">© Copyright Winq - 2025</p>
     </footer>
 
     <script>
-
         const carouselImages = document.getElementById('carouselImages');
         let scrollAmount = carouselImages.offsetWidth; // cantidad de desplazamiento inicial (ancho de una imagen)
 
-       
         function scrollCarousel(direction) {
             carouselImages.scrollBy({
-                left: direction * scrollAmount, //  desplazamiento basado en la dirección y la cantidad
-                behavior: 'smooth' 
+                left: direction * scrollAmount, // desplazamiento basado en la dirección y la cantidad
+                behavior: 'smooth'
             });
         }
-
 
         // Esto asegura que el carrusel siempre se desplace por el ancho de una imagen visible
         window.addEventListener('resize', () => {

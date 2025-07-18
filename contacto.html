@@ -12,7 +12,7 @@
 
 <header>
     <div class="caja">
-        <h1><img src="imagenes/logo.png" alt="Logo de Winq" /></h1>
+        <h1><img src="imagenes/logo-blanco.png" alt="Logo de Winq" /></h1>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
@@ -25,8 +25,8 @@
 
 <main>
     <h2 class="titulo-principal">Contáctanos</h2>
-    
-    <form action="https://formspree.io/f/mrblgkgr" method="POST"> 
+
+    <form action="https://formspree.io/f/mrblgkgr" method="POST">
         <label for="nombreApellido">Nombre y Apellido</label>
         <input type="text" id="nombreApellido" name="nombre_apellido" class="input-padron" required placeholder="Tu nombre completo" />
 
@@ -47,6 +47,12 @@
         </fieldset>
 
         <fieldset>
+            <legend>Dirección de Envío</legend>
+            <label for="direccionEnvio">Dirección completa</label>
+            <input type="text" id="direccionEnvio" name="direccion_envio" class="input-padron" placeholder="Calle, número, colonia, ciudad" />
+        </fieldset>
+
+        <fieldset>
             <legend>¿En cuál horario prefiere ser atendido?</legend>
             <select class="input-padron" name="horario_preferido" required>
                 <option value="" disabled selected>Seleccione un horario</option>
@@ -61,7 +67,7 @@
             ¿Le gustaría recibir novedades de Winq?
         </label>
 
-        <input type="hidden" name="_redirect" value="https://edunoob-65.github.io/Winq/index.html"> 
+        <input type="hidden" name="_redirect" value="https://edunoob-65.github.io/Winq/index.html">
         <input type="submit" value="Enviar Formulario" class="enviar" />
     </form>
     <table>
