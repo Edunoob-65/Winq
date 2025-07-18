@@ -577,9 +577,7 @@ footer p {
 }
 
 /* Opcional: Ajustes para el modal de producto para que el lightbox se vea bien sobre él */
-.modal-producto.is-active {
-    /* overflow: hidden; */ /* Descomenta si necesitas evitar el scroll en el modal principal cuando el lightbox está abierto */
-}
+
 
 /*------------------------------------*\
   #KEYFRAMES (ANIMATIONS)
