@@ -41,7 +41,7 @@
                 data-descripcion="Innova con nuestros llaveros que utilizan tecnologia Near Field Comunication (NFC) y codigos QR para conectar el mundo físico con el digital."
                 data-caracteristicas=""
                 data-precio="Q20.00"
-                data-whatsapp-numero="+50212345678" data-email-contacto="ventas@winq.com">
+                data-whatsapp-numero="+50212345678" data-email-contacto="winqwinq959@gmail.com">
                     <img src="productos/p1.jpg" alt="llavero inteligente" />
                     <h3>LLaveros Inteligentes</h3>
                     <p>Escoge tu diseño y nosotros hacemos el resto.</p>
@@ -141,13 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.producto-card').forEach(card => {
         card.addEventListener('click', function() {
-            // Verificamos si la tarjeta actual tiene el atributo data-proximamente="true"
+
             const isProximamente = this.dataset.proximamente === 'true';
 
-            // Si es un producto "próximamente" o el primer producto, ajustamos la imagen en el modal
+           
             if (isProximamente) {
-                // *** AQUÍ ESTÁ EL CAMBIO CLAVE ***
-                // Cargamos el GIF "trabajando.gif" para los productos "próximamente" en el modal
+                
                 modalImg.src = 'productos/trabajando.gif';
                 modalImg.alt = "Producto en desarrollo";
 
@@ -159,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalContactoSection.style.display = 'none'; // Oculta la sección de contacto
 
             } else {
-                // Lógica para los productos "normales" (actualmente solo el primero)
+                
                 const imgSrc = this.querySelector('img').getAttribute('src');
                 const imgAlt = this.querySelector('img').getAttribute('alt');
                 modalImg.src = imgSrc; // Carga la imagen de la tarjeta
