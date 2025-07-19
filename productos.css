@@ -30,8 +30,6 @@ body {
     /* Usa Montserrat para el cuerpo del texto para consistencia */
     font-family: 'Montserrat', sans-serif;
     color: var(--color-texto);
-    margin: 0;
-    padding: 0;
     line-height: 1.6;
     font-size: 16px;
     /* Degradado animado en el fondo del body */
@@ -41,7 +39,7 @@ body {
     /* La animación infinita en el body podría estar consumiendo recursos que afecten la reactividad inicial. */
     /* animation: gradientAnimation 15s ease infinite alternate; */
     /* Si el problema se soluciona eliminando esta línea, puedes optar por quitar la animación de fondo
-       o buscar una forma más optimizada de aplicarla si es crucial para tu diseño. */
+        o buscar una forma más optimizada de aplicarla si es crucial para tu diseño. */
 }
 
 /* Contenedor general */
@@ -257,14 +255,16 @@ footer p {
     align-items: center;
     opacity: 0;
     /* Animación de fundido para el overlay */
-    transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out; /* Añadida visibilidad para la transición */
+    visibility: hidden; /* Oculta el elemento para que no sea interactuable cuando no está activo */
     /* Hint para el navegador sobre cambios esperados */
-    will-change: opacity;
+    will-change: opacity, visibility;
 }
 
 .modal-producto.is-active {
     opacity: 1;
     display: flex; /* Se hace visible y centrado cuando JavaScript le añade la clase */
+    visibility: visible;
 }
 
 .modal-contenido {
@@ -317,28 +317,30 @@ footer p {
     justify-content: center; /* Centrar elementos si hay espacio */
 }
 
-/* En tu archivo productos.css */
-
+/* Estilos para el contenedor de la imagen del modal */
 .modal-imagen-container {
     position: relative; /* Asegura que los botones se posicionen correctamente */
     display: flex; /* Para centrar el carrusel si es necesario */
     justify-content: center;
     align-items: center;
-    /* Ajusta el ancho y alto si no están definidos, o si los quieres forzar */
-    width: 100%; /* O un valor fijo, por ejemplo, 400px */
-    max-width: 400px; /* O el tamaño que consideres adecuado */
+    width: 100%; /* Ocupa todo el ancho disponible en su flex container */
+    max-width: 400px; /* Ancho máximo para la imagen en el modal */
     height: auto;
-    aspect-ratio: 1 / 1; /* Mantiene la proporción cuadrada, ajusta si tus imágenes son rectangulares */
+    aspect-ratio: 1 / 1; /* Mantiene la proporción cuadrada */
     overflow: hidden; /* Muy importante para ocultar imágenes fuera de vista */
+    border-radius: 12px; /* Añadido para que las esquinas del contenedor de la imagen no sean puntiagudas si el contenedor es visible */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil para la imagen */
+    flex-shrink: 0; /* Evita que se encoja en pantallas grandes */
 }
 
 .carousel-container {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 100%; /* Necesario para que el carrusel ocupe el espacio del contenedor */
     display: flex;
     align-items: center; /* Centra verticalmente los botones */
     justify-content: space-between; /* Espacia los botones a los lados */
+    overflow: hidden; /* Mueve el overflow aquí para que las imágenes se recorten */
 }
 
 .carousel-images {
@@ -346,14 +348,15 @@ footer p {
     width: 100%;
     height: 100%;
     transition: transform 0.5s ease-in-out; /* Transición suave para el desplazamiento */
-    /* Asegúrate de que las imágenes dentro tengan estilos para ocupar el espacio */
 }
 
-.carousel-images img {
-    min-width: 100%; /* Cada imagen ocupará el 100% del ancho del carousel-images al estar una al lado de otra */
+/* Clase añadida por JS, asegúrate de que tenga los estilos correctos */
+.carousel-item-img {
+    min-width: 100%; /* Cada imagen ocupará el 100% del ancho del carousel-images */
     height: 100%;
     object-fit: contain; /* O 'cover' o 'fill' dependiendo de cómo quieras que se ajusten las imágenes */
     display: block; /* Elimina espacio extra que algunos navegadores agregan a las imágenes */
+    border-radius: 10px; /* Añadido para que las imágenes dentro del carrusel tengan bordes redondeados */
 }
 
 .carousel-btn {
@@ -383,8 +386,59 @@ footer p {
     right: 10px;
 }
 
-.modal-producto.is-active .modal-imagen-container img {
-    transform: scale(1.03); /* Ligero zoom al abrir */
+/* Lightbox de Imágenes */
+.lightbox-imagen {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 2000; /* Asegura que esté por encima del modal */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo más oscuro para la imagen grande */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    will-change: opacity, visibility;
+}
+
+.lightbox-imagen.is-active {
+    opacity: 1;
+    visibility: visible;
+    display: flex; /* Muestra el lightbox cuando está activo */
+}
+
+.lightbox-contenido {
+    margin: auto;
+    display: block;
+    max-width: 90%; /* Ajusta el tamaño de la imagen */
+    max-height: 90vh; /* Altura máxima para la imagen en el viewport */
+    border-radius: 5px;
+    object-fit: contain; /* Asegura que la imagen se vea completa */
+    transform: scale(0.8); /* Empieza un poco más pequeño para la animación */
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.lightbox-imagen.is-active .lightbox-contenido {
+    transform: scale(1);
+}
+
+.lightbox-caption {
+    text-align: center;
+    color: #ccc;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    max-width: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -480,8 +534,8 @@ footer p {
 }
 
 /* Nota: el botón de email fue reemplazado por texto en el HTML y JS proporcionado anteriormente.
-   Si deseas un botón de email de nuevo, podrías reincorporar el HTML y ajustar este estilo.
-   Mantengo la clase por si la reincorporas. */
+    Si deseas un botón de email de nuevo, podrías reincorporar el HTML y ajustar este estilo.
+    Mantengo la clase por si la reincorporas. */
 .email-btn {
     background-color: var(--color-azul-llamativo); /* Puedes cambiar este a un tono que combine mejor si no quieres el azul */
 }
@@ -506,7 +560,9 @@ footer p {
     text-align: center;
 }
 
-/* Media Queries para Responsividad del Modal (ajustadas) */
+/* --- Media Queries para Responsividad (ajustadas) --- */
+
+/* Tablet y dispositivos medianos */
 @media (max-width: 900px) {
     .modal-contenido {
         padding: 30px;
@@ -536,61 +592,179 @@ footer p {
     }
 }
 
+/* Teléfonos y dispositivos pequeños */
 @media (max-width: 600px) {
-    .modal-contenido {
-        padding: 25px;
-        border-radius: 12px;
-        width: 95%; /* Ocupa más ancho en pantallas pequeñas */
+    .caja {
+        flex-direction:row; /* Apila el logo y la navegación */
+        padding: 15px; /* Reduce el padding lateral */
+        gap: 15px; /* Espacio entre el logo y la nav */
     }
+
+    header {
+        min-height: auto; /* Permite que la altura se ajuste al contenido */
+        padding-bottom: 15px; /* Añade un poco de padding inferior para separar de la nav */
+    }
+
+    header h1 img {
+        height: 60px; /* Un poco más pequeño el logo en móvil */
+    }
+
+    nav ul {
+        flex-direction: row; /* Mantener en fila, o cambiar a column si prefieres una lista vertical */
+        flex-wrap: wrap; /* Permite que los elementos de nav se envuelvan si no caben */
+        justify-content: center; /* Centra los elementos de la nav */
+        width: 100%; /* Asegura que la nav ocupe todo el ancho */
+        gap: 8px; /* Reduce el espacio entre elementos de nav */
+    }
+
+    nav ul li a {
+        padding: 8px 10px; /* Reduce el padding de los links de nav */
+        font-size: 0.9rem; /* Ajusta el tamaño de la fuente de los links de nav */
+    }
+
+    /* Sección de Productos */
+    .productos-section {
+        margin: 30px auto; /* Reduce el margen superior/inferior */
+        padding: 15px 10px; /* Reduce el padding interno */
+        border-radius: 15px;
+    }
+
+    .productos-section .titulo-principal {
+        font-size: 2rem; /* Título principal más pequeño */
+        margin-bottom: 15px;
+        padding-bottom: 6px;
+    }
+
+    .productos-intro {
+        font-size: 1rem; /* Texto introductorio más pequeño */
+        margin-bottom: 25px;
+        padding: 0 5px; /* Pequeño padding para que el texto no toque los bordes */
+    }
+
+    .productos-grid {
+        grid-template-columns: 1fr; /* Una sola columna para los productos */
+        gap: 20px; /* Reduce el espacio entre tarjetas */
+        padding: 0; /* Elimina el padding lateral para que las tarjetas ocupen más ancho */
+    }
+
+    .producto-card {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .producto-card img {
+        width: 90%; /* La imagen de la tarjeta ocupa más ancho */
+        max-height: 160px; /* Ajusta la altura máxima */
+    }
+
+    .producto-card h3 {
+        font-size: 1.2rem; /* Título de tarjeta más pequeño */
+        margin-bottom: 10px;
+    }
+
+    /* Footer */
+    footer {
+        padding: 20px 15px; /* Reduce el padding del footer */
+        margin-top: 40px;
+    }
+
+    footer img {
+        height: 40px; /* Logo del footer más pequeño */
+        margin-bottom: 8px;
+    }
+
+    footer p {
+        font-size: 0.9rem; /* Texto de copyright más pequeño */
+    }
+
+    /* Modal de Producto */
+    .modal-contenido {
+        padding: 20px; /* Reduce el padding del contenido del modal */
+        border-radius: 12px;
+        width: 95%; /* El modal ocupa casi todo el ancho */
+        margin: 20px auto; /* Asegura que no toque los bordes y esté centrado */
+        overflow-y: auto; /* Permite desplazamiento vertical si el contenido es muy largo */
+        max-height: 90vh; /* Limita la altura máxima del modal al 90% del viewport height */
+    }
+
     .modal-cerrar {
         font-size: 38px;
-        top: 12px;
-        right: 20px;
+        top: -10px; /* Ajusta la posición de la "x" */
+        right: 5px;
     }
+
     .modal-flex {
-        flex-direction: column;
-        align-items: center;
-        gap: 25px;
+        flex-direction: column; /* Apila imagen e info verticalmente */
+        align-items: center; /* Centra los elementos apilados */
+        gap: 20px; /* Espacio entre imagen e info */
     }
+
     .modal-imagen-container {
-        min-width: unset;
-        max-width: 90%;
-        padding: 3px;
+        width: 100%; /* La imagen ocupa todo el ancho disponible */
+        max-width: 100%; /* Asegura que no exceda el 100% */
+        aspect-ratio: 16 / 9; /* Proporción más común para imágenes en móvil */
+        height: auto; /* Mantiene la proporción */
     }
+
+    .carousel-btn {
+        padding: 8px 12px; /* Botones del carrusel más pequeños */
+        font-size: 1.2em;
+    }
+
+    .prev-btn {
+        left: 5px; /* Más cerca del borde */
+    }
+
+    .next-btn {
+        right: 5px; /* Más cerca del borde */
+    }
+
     .modal-info {
-        min-width: unset;
+        width: 100%; /* Ocupa todo el ancho */
         padding-left: 0;
-        text-align: center; /* Centrar todo el texto en móviles */
+        text-align: center; /* Centra todo el texto de información */
     }
+
     .modal-info h2 {
-        font-size: 2em;
-        margin-bottom: 15px;
-        padding-bottom: 10px;
+        font-size: 1.8em; /* Título principal del modal más pequeño */
+        margin-bottom: 10px;
+        padding-bottom: 8px;
     }
+
     .modal-descripcion-texto, .modal-info p {
-        font-size: 1em;
+        font-size: 0.95em; /* Textos de descripción y párrafo más pequeños */
         text-align: center;
+        margin-bottom: 12px;
+        padding: 10px;
+    }
+
+    .modal-contacto-section {
+        margin-top: 25px; /* Reduce el margen superior */
+        padding-top: 15px;
+        flex-direction: column; /* Apila los botones de contacto */
+        gap: 10px; /* Espacio entre los botones de contacto */
+    }
+
+    .modal-contacto-section h3 {
+        font-size: 1.6em; /* Título de contacto más pequeño */
         margin-bottom: 15px;
     }
-    .modal-contacto-section {
-        margin-top: 30px;
-        padding-top: 20px;
-        flex-direction: column;
-        gap: 15px;
-    }
-    .modal-contacto-section h3 {
-        font-size: 1.8em;
-    }
+
     .whatsapp-btn, .email-btn {
-        width: 90%;
-        font-size: 1.1em;
-        padding: 12px 25px;
+        width: 95%; /* Botones de contacto ocupan casi todo el ancho */
+        font-size: 1em; /* Texto de botón más pequeño */
+        padding: 10px 20px;
+        gap: 10px;
+        border-radius: 30px; /* Menos redondeados para ser más compactos */
     }
+
     .whatsapp-btn i, .email-btn i {
-        font-size: 1.4em;
+        font-size: 1.2em; /* Íconos de botón más pequeños */
     }
+
     #modal-email-contacto-display {
-        font-size: 1.1em;
+        font-size: 1em;
+        margin-bottom: 10px;
     }
 }
 
